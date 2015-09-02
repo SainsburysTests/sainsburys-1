@@ -1,0 +1,13 @@
+{
+    "name": "sherwoor/sainsburys",
+    "authors": [
+        {
+            "name": "Russell Sherwood",
+            "email": "russell.sherwood@sky.uk"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "^4.8",
+        "symfony/console": "^2.7"
+    }
+}
