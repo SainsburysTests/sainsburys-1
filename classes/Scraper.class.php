@@ -44,11 +44,16 @@ class Scraper {
     }
 
     private function get_dom_xpath_for_html($html) {
-        // Returns a domxpath object for the given html
+        /*
+         *  Returns a domxpath object for the given html
+         *  E_WARNING level errors are disabled as the loadHTML function will report
+         *  on all malformed HTML formatting errors
+         */
 
-        error_reporting(E_ERROR | E_PARSE);
         $dom = new DOMDocument();
+        error_reporting(E_ERROR | E_PARSE);
         $dom->loadHTML($html);
+        error_reporting(E_ALL);
         $xpath_finder = new DomXPath($dom);
         return $xpath_finder;
     }
@@ -62,9 +67,9 @@ class Scraper {
         $description = "";
 
         foreach($node->childNodes as $child) {
-            if($child->tagName=="h3" && $child->textContent=="Description") {
+            if(isset($child->tagName) && $child->tagName=="h3" && $child->textContent=="Description") {
                 $write_text = True;
-            } elseif($child->tagName=="h3") {
+            } elseif(isset($child->tagName) && $child->tagName=="h3") {
                 $write_text = False;
             } elseif($child->hasChildNodes()) {
                 $description .= $this->recursive_build_description($child, $write_text, $level=$level+1);
