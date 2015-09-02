@@ -66,6 +66,10 @@ class Scraper {
 
         $description = "";
 
+        if(!$node) {
+            return $description;
+        }
+
         foreach($node->childNodes as $child) {
             if(isset($child->tagName) && $child->tagName=="h3" && $child->textContent=="Description") {
                 $write_text = True;
